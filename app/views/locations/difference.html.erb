@@ -1,4 +1,4 @@
-<h1>Difference as the crow files</h1>
+<h1>Distance Between two cities as the crow files</h1>
 
 
 
@@ -6,7 +6,6 @@
   <%= form_tag("/calculate_difference", method: "get") do %>
   <%= label_tag(:city1, "City1:") %>
   <%= text_field_tag(:city1) %>
-</div>
   
   <div>
   	<%= label_tag(:city2, "City2:") %>
@@ -18,12 +17,14 @@
   </div>
 
   <div>
-   <p> The closets cities are <%= @city %> and the distance between them is <%= @distance %> miles </p>
+   <p> The distance between <%= @location1 %> and <%= @location2 %> as the crow flies is <%= @distance %> miles </p>
   </div>
 
 <% end %>
+</div>
 
 
 
 <%= link_to 'Create New Location', locations_path %>
+<%= link_to 'Find the Closest cities', closest_path %>
 

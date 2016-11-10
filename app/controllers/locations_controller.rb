@@ -14,41 +14,28 @@ class LocationsController < ApplicationController
   end
 
   def difference
-    location = Location.all
-    hash = { }
-
-    for i in (0..location.length-1)
-      for j in ((i+1)..(location.length-1))
-         puts "Distance between" +" " +location[i][:address] + "and" +" " +location[j][:address] + "is"
-         value = Geocoder::Calculations.distance_between([location[i][:latitude],location[i][:longitude]] , [location[j][:latitude] , location[j][:longitude]]).round(2)
-         puts value 
-         key = location[i][:address]+" "+"and"+" "+location[j][:address]
-         hash[key] = value
-      end
-    end
-    
-     @least = [hash.min_by{|k, v| v}].to_h
-
-     @distance = @least.values[0]
-
-     @city = @least.keys[0]
-    
     render 'difference'
+  end
+
+  def closest
+    hash = Location.sumanth()
+    @city = hash[0]
+    @distance = hash[1]
+    render 'closets'
   end 
 
   def calucate_difference
     @location = Location.all
-    puts params[:city]
+    @location1 = params[:city1]
     city1 = @location.find_by(address: params[:city1])
     lat1 = city1[:latitude]
     long1 = city1[:longitude]
-
+    
+    @location2 = params[:city2]
     city2 = @location.find_by(address: params[:city2])
     lat2= city2[:latitude]
     long2 = city2[:longitude]
-
     @distance = Geocoder::Calculations.distance_between([lat1,long1] , [lat2,long2])
-
     render 'difference'
   end
 
